@@ -1,0 +1,42 @@
+.container {
+  text-align: center;
+  padding: 20px;
+}
+
+select {
+  margin: 10px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.summary {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.back-button-container {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.back-button {
+  padding: 6px 12px;
+  border: none;
+  background-color: #eee;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.no-data-message {
+  text-align: center;
+  font-style: italic;
+  color: gray;
+  margin-top: 20px;
+}

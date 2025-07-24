@@ -1,22 +1,18 @@
 <div class="container">
-  <h1 class="title">Simulare Repartizare Licee</h1>
+  <h1 class="title">{{ Constants.HOME_PAGE.TITLE }}</h1>
 
   <div class="card-container">
     <mat-card class="option-card" (click)="navigateTo('repartizare')">
       <div class="card-text">
-        <mat-card-title>Repartizare Licee</mat-card-title>
-        <mat-card-content>
-          Simulează repartizarea elevilor în liceele din Brașov.
-        </mat-card-content>
+        <mat-card-title>{{ Constants.HOME_PAGE.EN_OPTION_TITLE }}</mat-card-title>
+        <mat-card-content>{{ Constants.HOME_PAGE.EN_OPTION_SUBTITLE }}</mat-card-content>
       </div>
     </mat-card>
 
     <mat-card class="option-card" (click)="navigateTo('bac')">
       <div class="card-text">
-        <mat-card-title>Statistici Bac 2025</mat-card-title>
-        <mat-card-content>
-          Explorează datele și graficele examenului de Bacalaureat 2025.
-        </mat-card-content>
+        <mat-card-title>{{ Constants.HOME_PAGE.BAC_OPTION_TITLE }}</mat-card-title>
+        <mat-card-content>{{ Constants.HOME_PAGE.BAC_OPTION_SUBTITLE }}</mat-card-content>
       </div>
     </mat-card>
   </div>

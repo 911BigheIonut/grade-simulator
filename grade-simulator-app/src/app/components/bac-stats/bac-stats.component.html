@@ -1,1 +1,36 @@
-<p>bac-stats works!</p>
+<div class="container">
+  <div class="back-button-container">
+    <button class="back-button" (click)="goBack()">{{ Constants.BACK_BUTTON }}</button>
+  </div>
+  <h2>{{ Constants.BAC_PAGE.TITLE }}</h2>
+
+  <label for="unit"><b>{{ Constants.BAC_PAGE.UNIT }}</b></label>
+  <select id="unit" [(ngModel)]="selectedUnit" (change)="applyFilters()">
+    <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
+  </select>
+  <br>
+  <label for="spec"><b>{{ Constants.BAC_PAGE.SPECIALIZATION }}</b></label>
+  <select id="spec" [(ngModel)]="selectedSpecialization" (change)="applyFilters()">
+    <option *ngFor="let spec of specializations" [value]="spec">{{ spec }}</option>
+  </select>
+
+  <div *ngIf="totalStudents > 0; else noDataBlock" class="chart-container">
+      <canvas
+        baseChart
+        [data]="chartData"
+        [options]="chartOptions"
+        [type]="'pie'"
+        [plugins]="[ChartDataLabels]">
+      </canvas>
+
+    <div class="summary">
+      <p>{{ Constants.BAC_PAGE.TOTAL_STUDENTS }} {{ totalStudents }} | {{ Constants.BAC_PAGE.AVERAGE_GRADE }} {{ averageGrade }}</p>
+    </div>
+  </div>
+
+  <ng-template #noDataBlock>
+    <p class="no-data-message">
+      {{ Constants.BAC_PAGE.NO_RESULTS_ERROR_MESSAGE }}
+    </p>
+  </ng-template>
+</div>

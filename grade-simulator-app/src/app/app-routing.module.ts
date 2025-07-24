@@ -3,13 +3,30 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeScreenComponent } from "./components/home-screen/home-screen.component";
 import { EnStatsComponent } from "./components/en-stats/en-stats.component";
 import { BacStatsComponent } from "./components/bac-stats/bac-stats.component";
+import { Constants } from "./utils/constants";
 
 const routes: Routes = [
-  { path: 'simulare-evaluare2025', component: HomeScreenComponent },
-  { path: 'simulare-evaluare2025/repartizare', component: EnStatsComponent },
-  { path: 'simulare-evaluare2025/bac', component: BacStatsComponent },
-  { path: '', redirectTo: '/simulare-evaluare2025', pathMatch: 'full' },
-  { path: '**', redirectTo: '/simulare-evaluare2025' }
+  {
+    path: Constants.ROUTE_PATHS.HOME,
+    component: HomeScreenComponent,
+    data: { title: Constants.APP_TITLES.HOME }
+  },
+  {
+    path: Constants.ROUTE_PATHS.REPARTIZARE,
+    component: EnStatsComponent,
+    data: { title: Constants.APP_TITLES.EN }
+  },
+  {
+    path: Constants.ROUTE_PATHS.BAC,
+    component: BacStatsComponent,
+    data: { title: Constants.APP_TITLES.BAC }
+  },
+  {
+    path: '', redirectTo: `/${Constants.ROUTE_PATHS.HOME}`, pathMatch: 'full'
+  },
+  {
+    path: '**', redirectTo: `/${Constants.ROUTE_PATHS.HOME}`
+  }
 ];
 
 @NgModule({
