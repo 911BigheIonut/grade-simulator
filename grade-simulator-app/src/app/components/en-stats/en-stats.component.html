@@ -1,1 +1,55 @@
-<p>en-stats works!</p>
+<div class="container">
+  <a routerLink="/" class="back-link">← Înapoi</a>
+
+  <h1>Ce licee ți se potrivesc?</h1>
+
+  <label for="year">Selectează anul:</label>
+  <select [(ngModel)]="year" (change)="loadCandidates()">
+    <option value="2022">2022</option>
+    <option value="2023">2023</option>
+    <option value="2024">2024</option>
+  </select>
+
+  <label for="average">Introdu media ta de admitere:</label>
+  <input
+    type="number"
+    [(ngModel)]="average"
+    step="0.01"
+    min="1"
+    max="10"
+    placeholder="ex: 8.50"
+  />
+
+  <label for="abs">Introdu media generală de absolvire (opțional):</label>
+  <input
+    type="number"
+    [(ngModel)]="absAverage"
+    step="0.01"
+    min="1"
+    max="10"
+    placeholder="ex: 9.70"
+  />
+
+  <button (click)="filterSchools()">Caută</button>
+
+  <div class="result" *ngIf="infoMessage">
+    <p>{{ infoMessage }}</p>
+    <p>
+      <i>*Liceele sunt ordonate descrescător după ultima medie de intrare.</i>
+    </p>
+  </div>
+
+  <div *ngFor="let res of finalResults" class="item">
+    <div>Liceu: <span [innerHTML]="res.liceu"></span></div>
+    <div>Specializare: <span [innerHTML]="res.specializare"></span></div>
+    <div>
+      Prima medie: {{ res.prima.madm.toFixed(2) }} (abs.
+      {{ res.prima.mabs.toFixed(2) }}) – <i>poziția {{ res.pozMax }}</i>
+    </div>
+    <div>
+      Ultima medie: {{ res.ultima.madm.toFixed(2) }} (abs.
+      {{ res.ultima.mabs.toFixed(2) }}) – <i>poziția {{ res.pozMin }}</i>
+    </div>
+    <div>Poziții: {{ res.pozMax }} - {{ res.pozMin }}</div>
+  </div>
+</div>
