@@ -44,8 +44,22 @@ export class EnStatsComponent implements OnInit {
     this.finalResults = [];
 
     this.http.get<any[]>(fileName).subscribe({
-      next: (data) => {
-        this.candidatesData = data.map((e) => ({
+  next: (data) => {
+    this.candidatesData = data.map((e) => {
+      // detecteaza daca e formatul 2025
+      if ('school' in e && !('madm' in e)) {
+        return {
+          madm: parseFloat(e.mev),
+          mabs: 10,
+          nro: parseFloat(e.ri) || 0,
+          nmate: parseFloat(e.mi) || 0,
+          h: e.school,
+          sp: 'Nespecificat',
+          n: e.name,
+        };
+      } else {
+        // format 2024
+        return {
           madm: parseFloat(e.madm),
           mabs: parseFloat(e.mabs),
           nro: parseFloat(e.nro),
@@ -53,7 +67,9 @@ export class EnStatsComponent implements OnInit {
           h: e.h,
           sp: e.sp,
           n: e.n,
-        }));
+        };
+      }
+    });
 
         const mediiAdmitere = this.candidatesData
           .map((e) => e.madm)
