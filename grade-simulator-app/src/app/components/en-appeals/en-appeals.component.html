@@ -3,14 +3,16 @@
     <button class="back-button" (click)="goBack()">{{ Constants.BACK_BUTTON }}</button>
   </div>
 
-  <h2>{{ Constants.EN_APPEALS_PAGE.TITLE }}</h2>
+  <div class="header-section">
+    <h2 class="page-title">{{ Constants.EN_APPEALS_PAGE.TITLE }}</h2>
 
-  <div class="summary-box">
-    <p><b>{{ Constants.EN_APPEALS_PAGE.TOTAL_APPEALS }}</b> {{ total }}</p>
-    <p><b>{{ Constants.EN_APPEALS_PAGE.TOTAL_HIGHER_GRADES }}</b> {{ increased }}</p>
-    <p><b>{{ Constants.EN_APPEALS_PAGE.TOTAL_LOWER_GRADES }}</b> {{ decreased }}</p>
-    <p><b>{{ Constants.EN_APPEALS_PAGE.TOTAL_UNMODIFIED_GRADES }}</b> {{ unchanged }}</p>
-    <p><b>{{ Constants.EN_APPEALS_PAGE.AVERAGE_GRADE_DIFFERENCE }}</b> {{ meanDiff }} puncte</p>
+    <div class="summary-card">
+      <div class="summary-row"><b>{{ Constants.EN_APPEALS_PAGE.TOTAL_APPEALS }}</b> {{ total }}</div>
+      <div class="summary-row"><b>{{ Constants.EN_APPEALS_PAGE.TOTAL_HIGHER_GRADES }}</b> {{ increased }}</div>
+      <div class="summary-row"><b>{{ Constants.EN_APPEALS_PAGE.TOTAL_LOWER_GRADES }}</b> {{ decreased }}</div>
+      <div class="summary-row"><b>{{ Constants.EN_APPEALS_PAGE.TOTAL_UNMODIFIED_GRADES }}</b> {{ unchanged }}</div>
+      <div class="summary-row"><b>{{ Constants.EN_APPEALS_PAGE.AVERAGE_GRADE_DIFFERENCE }}</b> {{ meanDiff }} puncte</div>
+    </div>
   </div>
 
   <div class="chart-section">

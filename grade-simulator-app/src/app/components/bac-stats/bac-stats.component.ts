@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
 import { ChartConfiguration } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Router } from "@angular/router";
 import { Constants } from '../../utils/constants';
+import { DataService } from "../../services/data.service";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
@@ -73,16 +73,16 @@ export class BacStatsComponent implements OnInit {
 
   public ChartDataLabels = ChartDataLabels;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private dataService: DataService, private router: Router) {}
 
   ngOnInit() {
-    this.http.get<any[]>(Constants.DATA_API_BASE_URL).subscribe(data => {
+    this.dataService.getBacStatsData().subscribe(data => {
       const dataRows = data.slice(1);
       this.students = [];
 
       for (const s of dataRows) {
         const rawGrade = parseFloat(s[16]);
-        const isValid = !isNaN(rawGrade) && rawGrade > 0
+        const isValid = !isNaN(rawGrade) && rawGrade > 0;
 
         if (isValid) {
           this.students.push({

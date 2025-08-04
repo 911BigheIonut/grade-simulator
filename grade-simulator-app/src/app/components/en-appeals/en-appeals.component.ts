@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ChartConfiguration } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Chart as ChartJS, LineElement, BarElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend } from 'chart.js';
 import { Constants } from '../../utils/constants';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
+import {DataService} from "../../services/data.service";
 
 ChartJS.register(LineElement, BarElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend, ChartDataLabels);
 
@@ -66,10 +66,10 @@ export class EnAppealsComponent implements OnInit {
     }
   };
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private dataService: DataService, private router: Router) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>(Constants.DATA_API_BASE_EN_APPEALS_URL).subscribe(data => {
+    this.dataService.getEnAppealsData().subscribe(data => {
       this.entries = data.filter(e => e.ri !== null);
       this.contestedEntries = this.entries.filter(e => e.ra !== null && e.rf !== null);
 
