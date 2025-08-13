@@ -10,13 +10,15 @@ import { MatCardModule } from "@angular/material/card";
 import { NgChartsModule } from 'ng2-charts';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
+import { EnAppealsComponent } from './components/en-appeals/en-appeals.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeScreenComponent,
     EnStatsComponent,
-    BacStatsComponent
+    BacStatsComponent,
+    EnAppealsComponent
   ],
   imports: [
     BrowserModule,

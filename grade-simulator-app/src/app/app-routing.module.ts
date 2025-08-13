@@ -4,6 +4,7 @@ import { HomeScreenComponent } from "./components/home-screen/home-screen.compon
 import { EnStatsComponent } from "./components/en-stats/en-stats.component";
 import { BacStatsComponent } from "./components/bac-stats/bac-stats.component";
 import { Constants } from "./utils/constants";
+import {EnAppealsComponent} from "./components/en-appeals/en-appeals.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,11 @@ const routes: Routes = [
     path: Constants.ROUTE_PATHS.BAC,
     component: BacStatsComponent,
     data: { title: Constants.APP_TITLES.BAC }
+  },
+  {
+    path: Constants.ROUTE_PATHS.EN_APPEALS,
+    component: EnAppealsComponent,
+    data: { title: Constants.APP_TITLES.EN_APPEALS }
   },
   {
     path: '', redirectTo: `/${Constants.ROUTE_PATHS.HOME}`, pathMatch: 'full'

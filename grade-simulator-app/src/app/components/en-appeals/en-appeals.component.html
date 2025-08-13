@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="back-button-container">
+    <button class="back-button" (click)="goBack()">{{ Constants.BACK_BUTTON }}</button>
+  </div>
+
+  <div class="header-section">
+    <h2 class="page-title">{{ Constants.EN_APPEALS_PAGE.TITLE }}</h2>
+
+    <div class="summary-card">
+      <div class="summary-row"><b>{{ Constants.EN_APPEALS_PAGE.TOTAL_APPEALS }}</b> {{ total }}</div>
+      <div class="summary-row"><b>{{ Constants.EN_APPEALS_PAGE.TOTAL_HIGHER_GRADES }}</b> {{ increased }}</div>
+      <div class="summary-row"><b>{{ Constants.EN_APPEALS_PAGE.TOTAL_LOWER_GRADES }}</b> {{ decreased }}</div>
+      <div class="summary-row"><b>{{ Constants.EN_APPEALS_PAGE.TOTAL_UNMODIFIED_GRADES }}</b> {{ unchanged }}</div>
+      <div class="summary-row"><b>{{ Constants.EN_APPEALS_PAGE.AVERAGE_GRADE_DIFFERENCE }}</b> {{ meanDiff }} puncte</div>
+    </div>
+  </div>
+
+  <div class="chart-section">
+    <h3>{{ Constants.EN_APPEALS_PAGE.GRADE_EVOLUTION_CHART_TITLE }}</h3>
+    <canvas
+      baseChart
+      [data]="lineChartData"
+      [options]="lineChartOptions"
+      [type]="'line'">
+    </canvas>
+  </div>
+
+  <div class="chart-section">
+    <h3>{{ Constants.EN_APPEALS_PAGE.GRADE_DIFFERENCE_CHART_TITLE }}</h3>
+    <canvas
+      baseChart
+      [data]="barChartData"
+      [options]="barChartOptions"
+      [type]="'bar'">
+    </canvas>
+  </div>
+</div>
