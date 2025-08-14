@@ -1,56 +1,47 @@
-<div class="container">
-  <a routerLink="/" class="back-link">← Înapoi</a>
-
-  <h1>Ce licee ți se potrivesc?</h1>
-
-  <label for="year">Selectează anul:</label>
+<div class="form-container">
+  <label>An:</label>
   <select [(ngModel)]="year" (change)="loadCandidates()">
-    <option value="2022">2022</option>
-    <option value="2023">2023</option>
-    <option value="2024">2024</option>
-    <option value="2025">2025</option>
+    <option *ngFor="let y of years" [value]="y">{{ y }}</option>
   </select>
 
-  <label for="average">Introdu media ta de admitere:</label>
-  <input
-    type="number"
-    [(ngModel)]="average"
-    step="0.01"
-    min="1"
-    max="10"
-    placeholder="ex: 8.50"
-  />
-
-  <label for="abs">Introdu media generală de absolvire (opțional):</label>
-  <input
-    type="number"
-    [(ngModel)]="absAverage"
-    step="0.01"
-    min="1"
-    max="10"
-    placeholder="ex: 9.70"
-  />
-
-  <button (click)="filterSchools()">Caută</button>
-
-  <div class="result" *ngIf="infoMessage">
-    <p>{{ infoMessage }}</p>
-    <p>
-      <i>*Liceele sunt ordonate descrescător după ultima medie de intrare.</i>
-    </p>
+  <div *ngIf="year === '2024' || year === '2025'">
+    <label>Județ:</label>
+    <select [(ngModel)]="selectedCounty" (change)="loadCandidates()">
+      <option *ngFor="let c of counties" [value]="c.code">{{ c.name }}</option>
+    </select>
   </div>
 
-  <div *ngFor="let res of finalResults" class="item">
-    <div>Liceu: <span [innerHTML]="res.liceu"></span></div>
-    <div>Specializare: <span [innerHTML]="res.specializare"></span></div>
-    <div>
-      Prima medie: {{ res.prima.madm.toFixed(2) }} (abs.
-      {{ res.prima.mabs.toFixed(2) }}) – <i>poziția {{ res.pozMax }}</i>
+  <label>Media de admitere:</label>
+  <input type="number" [(ngModel)]="average" step="0.01" min="1" max="10">
+
+  <label>Media generală de absolvire:</label>
+  <input type="number" [(ngModel)]="absAverage" step="0.01" min="1" max="10">
+
+  <button (click)="filterSchools()">Caută licee</button>
+
+  <button class="back-btn" (click)="goBack()">Înapoi</button>
+</div>
+
+<div class="container">
+  <div *ngIf="finalResults.length > 0">
+    <h3>Rezultate:</h3>
+    <div *ngFor="let c of paginatedResults" class="card candidate-card">
+      <strong>{{ c.liceu }}</strong> ({{ c.specializare }})<br>
+      Media admitere: {{ c.prima.madm.toFixed(2) }} – {{ c.ultima.madm.toFixed(2) }}<br>
+      Media absolvire: {{ c.prima.mabs.toFixed(2) }} – {{ c.ultima.mabs.toFixed(2) }}<br>
+      Poziție estimativă: {{ c.pozMin }} – {{ c.pozMax }}
     </div>
-    <div>
-      Ultima medie: {{ res.ultima.madm.toFixed(2) }} (abs.
-      {{ res.ultima.mabs.toFixed(2) }}) – <i>poziția {{ res.pozMin }}</i>
+
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">&laquo; Prev</button>
+      <button *ngFor="let p of pageNumbers" 
+              [class.active]="p === currentPage" 
+              (click)="goToPage(p)">
+        {{ p }}
+      </button>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next &raquo;</button>
     </div>
-    <div>Poziții: {{ res.pozMax }} - {{ res.pozMin }}</div>
   </div>
+
+  <div *ngIf="infoMessage">{{ infoMessage }}</div>
 </div>

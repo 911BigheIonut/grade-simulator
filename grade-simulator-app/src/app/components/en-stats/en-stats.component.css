@@ -1,91 +1,62 @@
-.container {
-  max-width: 700px;
-  margin: auto;
-  background: #fff;
-  padding: 20px 40px 20px 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  position: relative;
+.form-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
 }
 
-a.back-link {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  text-decoration: none;
-  background: #eee;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: 0.2s;
-}
-
-a.back-link:hover {
-  background-color: #333;
-  color: white;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-label {
-  font-weight: bold;
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-
-input[type="number"],
-select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-}
-
-button {
-  display: block;
-  margin: 0 auto 20px auto;
-  background: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #0056b3;
-}
-
-.result {
-  margin-top: 20px;
-}
-
-.item {
+.form-container input,
+.form-container select,
+.form-container button {
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
   border: 1px solid #ccc;
+}
+
+.container {
+  max-width: 900px;
+  margin: 20px auto 20px auto;
+  padding: 20px;
+}
+
+.card.candidate-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 16px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.item:hover {
-  transform: scale(1.01);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 5px;
 }
 
-.item b {
-  color: #333;
+.pagination button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
-.item div {
-  margin-bottom: 6px;
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
 }
 
-.result p {
-  margin-bottom: 20px;
+.pagination button:disabled {
+  background: #eee;
+  cursor: not-allowed;
 }

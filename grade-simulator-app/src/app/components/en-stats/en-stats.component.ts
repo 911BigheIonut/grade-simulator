@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { CandidateService, Candidate } from '../../services/candidate.service';
 
-interface Candidate {
-  madm: number;
-  mabs: number;
-  h: string;
-  sp: string;
-  n: string;
-  nro: number;
-  nmate: number;
+interface County {
+  code: string;
+  name: string;
 }
 
 @Component({
@@ -18,151 +13,119 @@ interface Candidate {
 })
 export class EnStatsComponent implements OnInit {
   year: string = '2024';
+  years: string[] = ['2022', '2023', '2024', '2025'];
+  counties: County[] = [
+    { name: 'Alba', code: 'AB' },
+    { name: 'Arad', code: 'AR' },
+    { name: 'Argeş', code: 'AG' },
+    { name: 'Bacău', code: 'BC' },
+    { name: 'Bihor', code: 'BH' },
+    { name: 'Bistriţa-Năsăud', code: 'BN' },
+    { name: 'Botoşani', code: 'BT' },
+    { name: 'Brăila', code: 'BR' },
+    { name: 'Braşov', code: 'BV' },
+    { name: 'Buzău', code: 'BZ' },
+    { name: 'Călăraşi', code: 'CL' },
+    { name: 'Caraş-Severin', code: 'CS' },
+    { name: 'Cluj', code: 'CJ' },
+    { name: 'Constanţa', code: 'CT' },
+    { name: 'Covasna', code: 'CV' },
+    { name: 'Dâmboviţa', code: 'DB' },
+    { name: 'Dolj', code: 'DJ' },
+    { name: 'Galaţi', code: 'GL' },
+    { name: 'Giurgiu', code: 'GR' },
+    { name: 'Gorj', code: 'GJ' },
+    { name: 'Harghita', code: 'HR' },
+    { name: 'Hunedoara', code: 'HD' },
+    { name: 'Ialomiţa', code: 'IL' },
+    { name: 'Iaşi', code: 'IS' },
+    { name: 'Ilfov', code: 'IF' },
+    { name: 'Maramureş', code: 'MM' },
+    { name: 'Mehedinţi', code: 'MH' },
+    { name: 'Mureş', code: 'MS' },
+    { name: 'Neamţ', code: 'NT' },
+    { name: 'Olt', code: 'OT' },
+    { name: 'Prahova', code: 'PH' },
+    { name: 'Sălaj', code: 'SJ' },
+    { name: 'Satu Mare', code: 'SM' },
+    { name: 'Sibiu', code: 'SB' },
+    { name: 'Suceava', code: 'SV' },
+    { name: 'Teleorman', code: 'TR' },
+    { name: 'Timiş', code: 'TM' },
+    { name: 'Tulcea', code: 'TL' },
+    { name: 'Vâlcea', code: 'VL' },
+    { name: 'Vaslui', code: 'VS' },
+    { name: 'Vrancea', code: 'VN' },
+    { name: 'Bucureşti', code: 'B' },
+  ];
+  selectedCounty: string = this.counties[0].code;
+
   average: number | null = null;
   absAverage: number | null = null;
-  candidatesData: Candidate[] = [];
   infoMessage: string = '';
-  finalResults: {
-    liceu: string;
-    specializare: string;
-    prima: Candidate;
-    ultima: Candidate;
-    pozMax: number;
-    pozMin: number;
-  }[] = [];
+  finalResults: any[] = [];
   stats: any = null;
 
-  constructor(private http: HttpClient) {}
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  paginatedResults: any[] = [];
 
-  ngOnInit() {
-    this.loadCandidates();
+  constructor(private candidateService: CandidateService) {}
+
+  async ngOnInit() {
+    await this.loadCandidates();
   }
 
-  loadCandidates() {
-    const fileName = `assets/data/candidates${this.year}.json`;
-    this.infoMessage = 'Se încarcă datele...';
-    this.finalResults = [];
+  async loadCandidates() {
+    try {
+      this.infoMessage = 'Se încarcă datele...';
 
-    this.http.get<any[]>(fileName).subscribe({
-  next: (data) => {
-    this.candidatesData = data.map((e) => {
-      // detecteaza daca e formatul 2025
-      if ('school' in e && !('madm' in e)) {
-        return {
-          madm: parseFloat(e.mev),
-          mabs: 10,
-          nro: parseFloat(e.ri) || 0,
-          nmate: parseFloat(e.mi) || 0,
-          h: e.school,
-          sp: 'Nespecificat',
-          n: e.name,
-        };
-      } else {
-        // format 2024
-        return {
-          madm: parseFloat(e.madm),
-          mabs: parseFloat(e.mabs),
-          nro: parseFloat(e.nro),
-          nmate: parseFloat(e.nmate),
-          h: e.h,
-          sp: e.sp,
-          n: e.n,
-        };
+      let fileIdentifier = this.year;
+      if (this.year === '2024' || this.year === '2025') {
+        fileIdentifier += this.selectedCounty;
       }
-    });
 
-        const mediiAdmitere = this.candidatesData
-          .map((e) => e.madm)
-          .filter(Number.isFinite);
-        const mediiMate = this.candidatesData
-          .map((e) => e.nmate)
-          .filter(Number.isFinite);
-        const mediiRom = this.candidatesData
-          .map((e) => e.nro)
-          .filter(Number.isFinite);
-        const mediiGen = this.candidatesData
-          .map((e) => e.mabs)
-          .filter(Number.isFinite);
-
-        this.stats = {
-          total: mediiAdmitere.length,
-          mediaGenerala: this.avg(mediiAdmitere),
-          mediaRom: this.avg(mediiRom),
-          mediaMate: this.avg(mediiMate),
-          mediaAbs: this.avg(mediiGen),
-        };
-
-        this.infoMessage =
-          'Datele au fost încărcate. Introdu o medie și apasă "Caută".';
-      },
-      error: () => {
-        this.infoMessage = 'Eroare la încărcarea datelor.';
-      },
-    });
-  }
-
-  avg(values: number[]): number {
-    return values.reduce((a, b) => a + b, 0) / values.length;
+      await this.candidateService.loadCandidates(fileIdentifier);
+      this.stats = this.candidateService.getStats();
+      this.infoMessage =
+        'Datele au fost încărcate. Introdu o medie și apasă "Caută".';
+      this.resetPagination();
+    } catch {
+      this.infoMessage = 'Eroare la încărcarea datelor.';
+    }
   }
 
   filterSchools() {
-    const input = this.average;
-    const inputAbs = this.absAverage === null ? 10.0 : this.absAverage;
-
-    this.finalResults = [];
-
-    if (input === null || input < 1 || input > 10) {
+    if (this.average === null || this.average < 1 || this.average > 10) {
       this.infoMessage = 'Te rugăm să introduci o medie validă (1-10).';
       return;
     }
-
-    if (inputAbs < 1 || inputAbs > 10) {
+    if (
+      this.absAverage !== null &&
+      (this.absAverage < 1 || this.absAverage > 10)
+    ) {
       this.infoMessage =
         'Te rugăm să introduci o medie de absolvire validă (1-10) sau să o lași necompletată.';
       return;
     }
 
-    const sorted = this.candidatesData
-      .filter((e) => !isNaN(e.madm) && !isNaN(e.mabs))
-      .sort((a, b) => b.madm - a.madm || b.mabs - a.mabs);
-
-    const pozitie =
-      sorted.findIndex(
-        (e) => input > e.madm || (input === e.madm && inputAbs >= e.mabs)
-      ) + 1;
-
-    const grouped: Record<
-      string,
-      { h: string; sp: string; entries: Candidate[] }
-    > = {};
-    for (const entry of sorted) {
-      const key = `${entry.h}|${entry.sp}`;
-      if (!grouped[key]) {
-        grouped[key] = { h: entry.h, sp: entry.sp, entries: [entry] };
-      } else {
-        grouped[key].entries.push(entry);
-      }
-    }
-
-    const resultArray = Object.values(grouped)
-      .filter((group) => group.entries[group.entries.length - 1].madm <= input)
-      .sort(
-        (a, b) =>
-          b.entries[b.entries.length - 1].madm -
-          a.entries[a.entries.length - 1].madm
-      );
+    const { resultArray, sorted, pozitie } =
+      this.candidateService.filterCandidates(this.average, this.absAverage);
 
     if (resultArray.length === 0) {
       this.infoMessage = 'Nu există licee unde te-ai încadra cu această medie.';
+      this.finalResults = [];
+      this.paginatedResults = [];
       return;
     }
 
-    this.infoMessage = `Rezultate pentru media de admitere: ${input.toFixed(
+    this.infoMessage = `Rezultate pentru media de admitere: ${this.average.toFixed(
       2
-    )} | 
-Media de absolvire: ${inputAbs.toFixed(2)} | 
-Poziție estimativă: ${pozitie > 0 ? pozitie : 'sub ultima poziție'} | 
-Total candidați: ${sorted.length}`;
+    )} | Media de absolvire: ${(this.absAverage ?? 10).toFixed(
+      2
+    )} | Poziție estimativă: ${
+      pozitie > 0 ? pozitie : 'sub ultima poziție'
+    } | Total candidați: ${sorted.length}`;
 
     this.finalResults = resultArray.map((group) => {
       const prima = group.entries[0];
@@ -194,5 +157,49 @@ Total candidați: ${sorted.length}`;
         pozMin,
       };
     });
+
+    this.resetPagination();
+  }
+
+  resetPagination() {
+    this.currentPage = 1;
+    this.updatePaginatedResults();
+  }
+
+  updatePaginatedResults() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedResults = this.finalResults.slice(startIndex, endIndex);
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+    this.updatePaginatedResults();
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedResults();
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedResults();
+    }
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.finalResults.length / this.itemsPerPage);
+  }
+
+  get pageNumbers(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  goBack() {
+    window.history.back();
   }
 }
