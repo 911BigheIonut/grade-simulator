@@ -1,0 +1,35 @@
+<div class="occupation-container">
+  <h2>Grad de ocupare</h2>
+  <p>Afișează care specializări sunt ocupate și în ce proporție</p>
+
+  <label for="pos">Poziția în ierarhie:</label>
+  <input
+    id="pos"
+    type="number"
+    [(ngModel)]="position"
+    (input)="onPositionChange()"
+    min="1"
+    [max]="candidates.length"
+  />
+
+  <table *ngIf="specializations.length > 0" class="occupation-table">
+    <thead>
+      <tr>
+        <th>Specializare</th>
+        <th>Număr</th>
+        <th>Proporție</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of specializations">
+        <td>{{ s.name }}</td>
+        <td>{{ s.count }}</td>
+        <td>{{ s.proportion | number:'1.0-2' }}%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="specializations.length === 0">
+    <p>Nicio specializare ocupată pentru poziția selectată.</p>
+  </div>
+</div>

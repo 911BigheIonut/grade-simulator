@@ -11,6 +11,8 @@ import { NgChartsModule } from 'ng2-charts';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { EnAppealsComponent } from './components/en-appeals/en-appeals.component';
+import { DegreeOccupationComponent } from './components/occupation/occupation.component';
+import { LastAdmittedComponent } from './components/last-admitted/last-admitted.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { EnAppealsComponent } from './components/en-appeals/en-appeals.component
     HomeScreenComponent,
     EnStatsComponent,
     BacStatsComponent,
-    EnAppealsComponent
+    EnAppealsComponent,
+    DegreeOccupationComponent,
+    LastAdmittedComponent,
   ],
   imports: [
     BrowserModule,

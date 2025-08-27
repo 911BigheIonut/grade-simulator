@@ -12,10 +12,10 @@
   </div>
 
   <label>Media de admitere:</label>
-  <input type="number" [(ngModel)]="average" step="0.01" min="1" max="10">
+  <input type="number" [(ngModel)]="average" step="0.01" min="1" max="10" />
 
   <label>Media generală de absolvire:</label>
-  <input type="number" [(ngModel)]="absAverage" step="0.01" min="1" max="10">
+  <input type="number" [(ngModel)]="absAverage" step="0.01" min="1" max="10" />
 
   <button (click)="filterSchools()">Caută licee</button>
 
@@ -26,20 +26,30 @@
   <div *ngIf="finalResults.length > 0">
     <h3>Rezultate:</h3>
     <div *ngFor="let c of paginatedResults" class="card candidate-card">
-      <strong>{{ c.liceu }}</strong> ({{ c.specializare }})<br>
-      Media admitere: {{ c.prima.madm.toFixed(2) }} – {{ c.ultima.madm.toFixed(2) }}<br>
-      Media absolvire: {{ c.prima.mabs.toFixed(2) }} – {{ c.ultima.mabs.toFixed(2) }}<br>
+      <div [innerHTML]="c.liceu"></div>
+      <div [innerHTML]="c.specializare"></div>
+
+      Media admitere: {{ c.prima.madm.toFixed(2) }} –
+      {{ c.ultima.madm.toFixed(2) }}<br />
+      <!-- Media absolvire: {{ c.prima.mabs.toFixed(2) }} –
+      {{ c.ultima.mabs.toFixed(2) }}<br /> -->
       Poziție estimativă: {{ c.pozMin }} – {{ c.pozMax }}
     </div>
 
     <div class="pagination">
-      <button (click)="prevPage()" [disabled]="currentPage === 1">&laquo; Prev</button>
-      <button *ngFor="let p of pageNumbers" 
-              [class.active]="p === currentPage" 
-              (click)="goToPage(p)">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">
+        &laquo; Prev
+      </button>
+      <button
+        *ngFor="let p of pageNumbers"
+        [class.active]="p === currentPage"
+        (click)="goToPage(p)"
+      >
         {{ p }}
       </button>
-      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next &raquo;</button>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+        Next &raquo;
+      </button>
     </div>
   </div>
 

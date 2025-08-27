@@ -14,50 +14,8 @@ interface County {
 export class EnStatsComponent implements OnInit {
   year: string = '2024';
   years: string[] = ['2022', '2023', '2024', '2025'];
-  counties: County[] = [
-    { name: 'Alba', code: 'AB' },
-    { name: 'Arad', code: 'AR' },
-    { name: 'Argeş', code: 'AG' },
-    { name: 'Bacău', code: 'BC' },
-    { name: 'Bihor', code: 'BH' },
-    { name: 'Bistriţa-Năsăud', code: 'BN' },
-    { name: 'Botoşani', code: 'BT' },
-    { name: 'Brăila', code: 'BR' },
-    { name: 'Braşov', code: 'BV' },
-    { name: 'Buzău', code: 'BZ' },
-    { name: 'Călăraşi', code: 'CL' },
-    { name: 'Caraş-Severin', code: 'CS' },
-    { name: 'Cluj', code: 'CJ' },
-    { name: 'Constanţa', code: 'CT' },
-    { name: 'Covasna', code: 'CV' },
-    { name: 'Dâmboviţa', code: 'DB' },
-    { name: 'Dolj', code: 'DJ' },
-    { name: 'Galaţi', code: 'GL' },
-    { name: 'Giurgiu', code: 'GR' },
-    { name: 'Gorj', code: 'GJ' },
-    { name: 'Harghita', code: 'HR' },
-    { name: 'Hunedoara', code: 'HD' },
-    { name: 'Ialomiţa', code: 'IL' },
-    { name: 'Iaşi', code: 'IS' },
-    { name: 'Ilfov', code: 'IF' },
-    { name: 'Maramureş', code: 'MM' },
-    { name: 'Mehedinţi', code: 'MH' },
-    { name: 'Mureş', code: 'MS' },
-    { name: 'Neamţ', code: 'NT' },
-    { name: 'Olt', code: 'OT' },
-    { name: 'Prahova', code: 'PH' },
-    { name: 'Sălaj', code: 'SJ' },
-    { name: 'Satu Mare', code: 'SM' },
-    { name: 'Sibiu', code: 'SB' },
-    { name: 'Suceava', code: 'SV' },
-    { name: 'Teleorman', code: 'TR' },
-    { name: 'Timiş', code: 'TM' },
-    { name: 'Tulcea', code: 'TL' },
-    { name: 'Vâlcea', code: 'VL' },
-    { name: 'Vaslui', code: 'VS' },
-    { name: 'Vrancea', code: 'VN' },
-    { name: 'Bucureşti', code: 'B' },
-  ];
+
+  counties: County[] = this.candidateService.counties;
   selectedCounty: string = this.counties[0].code;
 
   average: number | null = null;
@@ -199,7 +157,7 @@ export class EnStatsComponent implements OnInit {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
-  goBack() {
+  goBack(): void {
     window.history.back();
   }
 }

@@ -1,0 +1,19 @@
+.occupation-form {
+  margin-bottom: 20px;
+}
+
+.occupation-results table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.occupation-results th,
+.occupation-results td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.occupation-results th {
+  background-color: #f4f4f4;
+}

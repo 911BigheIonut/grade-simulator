@@ -3,14 +3,18 @@ export const Constants = {
     HOME: 'Simulare Repartizare Licee',
     BAC: 'Bacalaureat 2025 Brașov',
     EN: 'Simulare Admitere Liceu',
-    EN_APPEALS: 'Analiză contestații Română'
+    EN_APPEALS: 'Analiză contestații Română',
+    DEGREE_OCCUPATION: 'Grad de ocupare a locurilor în licee',
+    LAST_ADMITTED: 'Ultimul admis pe specializare'
   },
 
   ROUTE_PATHS: {
     HOME: 'simulare-evaluare2025',
     REPARTIZARE: 'simulare-evaluare2025/repartizare',
     BAC: 'simulare-evaluare2025/bac',
-    EN_APPEALS: 'simulare-evaluare2025/contestatii'
+    EN_APPEALS: 'simulare-evaluare2025/contestatii',
+    DEGREE_OCCUPATION: 'simulare-evaluare2025/ocupare',
+    LAST_ADMITTED: 'simulare-evaluare2025/ultimul-admis'
   },
 
   GRADE_INTERVALS: [
@@ -31,7 +35,11 @@ export const Constants = {
     EN_APPEALS_OPTION_TITLE: 'Analiză contestații la Limba Română',
     EN_APPEALS_OPTION_SUBTITLE: 'Evaluare Națională',
     BAC_OPTION_TITLE: 'Statistici Bac 2025',
-    BAC_OPTION_SUBTITLE: 'Explorează datele și graficele examenului de Bacalaureat 2025.'
+    BAC_OPTION_SUBTITLE: 'Explorează datele și graficele examenului de Bacalaureat 2025.',
+    DEGREE_OCCUPATION_TITLE: 'Grad de ocupare',
+    DEGREE_OCCUPATION_SUBTITLE: 'Afișează care specializări sunt ocupate și în ce proporție',
+    LAST_ADMITTED_TITLE: 'Ultimul admis',
+    LAST_ADMITTED_SUBTITLE: 'Poziția ultimului admis pe specializare'
   },
   BAC_PAGE: {
     TITLE: 'Bacalaureat 2025 Brașov',
@@ -54,6 +62,10 @@ export const Constants = {
     INITIAL_GRADE: 'Nota inițială (ri)',
     APPEAL_GRADE: 'Nota după contestație (ra)',
     GRADE_DIFFERENCE: 'Diferență (ra - ri)'
+  },
+  DEGREE_OCCUPATION_PAGE: {
+    TITLE: 'Grad de ocupare a locurilor în licee',
+    DEGREE_OCCUPATION_SUBTITLE: 'Afiseaza care specializare sunt ocupate si in ce proportie',
   },
   DEFAULT_FILTERING: 'Toate',
   BACK_BUTTON: 'Înapoi',

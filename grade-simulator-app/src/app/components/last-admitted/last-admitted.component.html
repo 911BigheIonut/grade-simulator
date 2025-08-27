@@ -1,0 +1,42 @@
+<div class="navbar">
+
+  <div class="nav-item">
+    <label for="county">Județ:</label>
+    <select id="county" [(ngModel)]="county" (change)="onCountyChange()">
+      <option value="">-- Selectează județul --</option>
+      <option *ngFor="let c of counties" [value]="c.code">
+        {{ c.name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="nav-item">
+    <label for="school">Liceu:</label>
+    <select id="school" [(ngModel)]="school" (change)="onSchoolChange()">
+      <option value="">-- Selectează liceul --</option>
+      <option *ngFor="let s of schools" [value]="s">{{ s }}</option>
+    </select>
+  </div>
+
+  <button class="back-btn" (click)="goBack()">Înapoi</button>
+</div>
+
+
+<div class="chart-container" *ngIf="chartData">
+  <canvas
+    baseChart
+    [data]="chartData"
+    [type]="'line'"
+    [options]="{
+      responsive: true,
+      plugins: { legend: { position: 'bottom' } },
+      scales: {
+        y: {
+          min: 0,
+          max: 10,
+          ticks: { stepSize: 1 }
+        }
+      }
+    }"
+  ></canvas>
+</div>
