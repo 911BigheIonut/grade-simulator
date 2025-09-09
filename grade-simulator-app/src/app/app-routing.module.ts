@@ -5,7 +5,7 @@ import { EnStatsComponent } from "./components/en-stats/en-stats.component";
 import { BacStatsComponent } from "./components/bac-stats/bac-stats.component";
 import { Constants } from "./utils/constants";
 import {EnAppealsComponent} from "./components/en-appeals/en-appeals.component";
-import { DegreeOccupationComponent } from './components/occupation/occupation.component';
+import { OccupationComponent } from './components/occupation/occupation.component';
 import { LastAdmittedComponent } from './components/last-admitted/last-admitted.component';
 
 const routes: Routes = [
@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: Constants.ROUTE_PATHS.DEGREE_OCCUPATION,
-    component: DegreeOccupationComponent,
+    component: OccupationComponent,
     data: { title: Constants.APP_TITLES.DEGREE_OCCUPATION }
   },
   {

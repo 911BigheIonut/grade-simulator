@@ -11,7 +11,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { EnAppealsComponent } from './components/en-appeals/en-appeals.component';
-import { DegreeOccupationComponent } from './components/occupation/occupation.component';
+import { OccupationComponent } from './components/occupation/occupation.component';
 import { LastAdmittedComponent } from './components/last-admitted/last-admitted.component';
 
 @NgModule({
@@ -21,7 +21,7 @@ import { LastAdmittedComponent } from './components/last-admitted/last-admitted.
     EnStatsComponent,
     BacStatsComponent,
     EnAppealsComponent,
-    DegreeOccupationComponent,
+    OccupationComponent,
     LastAdmittedComponent,
   ],
   imports: [

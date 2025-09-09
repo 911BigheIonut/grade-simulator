@@ -1,19 +1,66 @@
-.occupation-form {
-  margin-bottom: 20px;
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 12px 20px;
+  border-bottom: 2px solid #ccc;
+  z-index: 1000;
 }
 
-.occupation-results table {
-  width: 100%;
+.tables {
+  margin-top: 90px;
+  padding: 0 40px; 
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+h2 {
+  margin: 20px 0 10px;
+}
+
+table {
   border-collapse: collapse;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  table-layout: fixed;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  overflow: hidden;
 }
 
-.occupation-results th,
-.occupation-results td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  word-wrap: break-word;
 }
 
-.occupation-results th {
-  background-color: #f4f4f4;
+thead {
+  background: #f2f2f2;
+  font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.complete td {
+  background-color: #e6ffed;
+}
+
+.partial td {
+  background-color: #fff8e1;
+}
+
+.empty td {
+  background-color: #ffe6e6;
 }
